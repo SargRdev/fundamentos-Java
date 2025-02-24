@@ -13,6 +13,8 @@ public class TareaDomestica extends Tarea{
 
     @Override
     public String toString() {
-        return super.toString() + "TareaDomestica{" + "area=" + area + '}';
+        return "Tarea tipo= Doméstica \n" + super.toString()
+                + "área= " + area + "\n"
+                + "************************";
     }
 }

@@ -39,7 +39,6 @@ public class FundamentosApplication implements CommandLineRunner {
                 4. Salir""");
 
         System.out.print("Digite el número de opción: ");
-        System.out.println();
     }
 
     public boolean ejecutar(Scanner entrada, ArrayList<Tarea> tareas) {
@@ -72,16 +71,16 @@ public class FundamentosApplication implements CommandLineRunner {
 
     public static void agregar(Scanner entrada, ArrayList<Tarea> tareas) {
         Tarea tareaNueva;
-        boolean salir = false;
 
         System.out.println("""
-                Digite una opción
+                Elija el tipo de tarea que desea agregar:
                 1. Tarea Laboral
-                2. Tarea Domestica
+                2. Tarea Doméstica
                 3. Salir """);
         int opc = Integer.parseInt(entrada.nextLine());
 
         switch (opc) {
+
             case 1:
                 tareaNueva  = new TareaLaboral();
                 tareaNueva.setId(tareas.size()+1);
@@ -90,7 +89,7 @@ public class FundamentosApplication implements CommandLineRunner {
                 System.out.print("Indique la prioridad: ");
                 ((TareaLaboral)tareaNueva).setPrioridad(entrada.nextLine());
                 tareas.add(tareaNueva);
-                System.out.println("Tarea agregada con exito");
+                System.out.println("Tarea agregada con éxito");
                 break;
             case 2:
                 tareaNueva = new TareaDomestica();
@@ -100,15 +99,14 @@ public class FundamentosApplication implements CommandLineRunner {
                 System.out.println("Indique el área: ");
                 ((TareaDomestica)tareaNueva).setArea(entrada.nextLine());
                 tareas.add(tareaNueva);
-                System.out.println("Tarea agregada con exito");
+                System.out.println("*** Tarea agregada con exito ***");
                 break;
             case 3:
-                System.out.println("REGRESANDO AL MENÚ PRINCIPAL");
-                salir = true;
+                System.out.println("*** REGRESANDO AL MENÚ PRINCIPAL ***");
                 break;
 
             default:
-                System.out.println("opción incorrecta");
+                System.out.println("*** opción incorrecta *** ");
         }
 
     }
@@ -116,7 +114,7 @@ public class FundamentosApplication implements CommandLineRunner {
 
     public static void listar(ArrayList<Tarea> tareas) {
         if (tareas.isEmpty()) {
-            System.out.println("No hay tareas");
+            System.out.println("*** No hay tareas en la Lista ***");
         }else {
             System.out.println("****** Tareas: ******");
             for (Tarea tarea : tareas) {
@@ -129,19 +127,18 @@ public class FundamentosApplication implements CommandLineRunner {
     }
 
     public static void eliminar(Scanner entrada, ArrayList<Tarea> tareas) {
-        if (tareas.isEmpty()) {
-            System.out.println("No hay tareas");
-        } else {
-            System.out.print("Ingrese el nombre del tarea que desea eliminar: ");
-            String eliminar = entrada.nextLine();
-
-            for (int i = 0; i < tareas.size(); i++) {
-                if (tareas.get(i).getDescription().equalsIgnoreCase(eliminar)) {
-                    tareas.remove(i);
-                    System.out.println("Tarea eliminada con exito");
-                }
-
+            listar(tareas);
+            if (tareas.isEmpty()) {
+                return;
             }
+            System.out.print("Ingrese el id de la tarea que deseas eliminar: ");
+            String id = entrada.nextLine();
+            for (int i = 0; i < tareas.size(); i++) {
+                if (tareas.get(i).getId()==Integer.parseInt(id)) {
+                    tareas.remove(i);
+
+                    System.out.println("*** Tarea eliminada con éxito ***");
+                }
         }
     }
 }

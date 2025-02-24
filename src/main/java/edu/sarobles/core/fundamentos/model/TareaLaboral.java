@@ -13,8 +13,9 @@ public class TareaLaboral extends Tarea {
 
     @Override
     public String toString() {
-        return super.toString()
-        + "TareaLaboral [prioridad= " + prioridad + "]";
+        return "Tarea tipo= Laboral \n" + super.toString()
+        + "prioridad= " + prioridad + "\n"
+                + "************************";
 
     }
 }

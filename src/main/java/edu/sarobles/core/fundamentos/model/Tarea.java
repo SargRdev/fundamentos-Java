@@ -1,6 +1,6 @@
 package edu.sarobles.core.fundamentos.model;
 
-public class Tarea {
+public abstract class Tarea {
 
     private int id;
     private String description;
@@ -25,6 +25,7 @@ public class Tarea {
 
     @Override
     public String toString() {
-        return "Tarea [id=" + id + ", description=" + description + "]";
+        return "id= " + id + "\n"
+                + "descripción= " + description + "\n";
     }
 }
