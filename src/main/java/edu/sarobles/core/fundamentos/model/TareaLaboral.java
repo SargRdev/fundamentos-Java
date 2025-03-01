@@ -2,6 +2,7 @@ package edu.sarobles.core.fundamentos.model;
 
 import edu.sarobles.core.fundamentos.Interfaces.IAgenda;
 import edu.sarobles.core.fundamentos.Interfaces.ITarea;
+import edu.sarobles.core.fundamentos.utils.Utilities;
 
 import java.util.Date;
 
@@ -10,6 +11,17 @@ public class TareaLaboral extends Tarea implements ITarea, IAgenda {
     private Date fecha;
     private Date horaInicio;
     private Date horaFin;
+
+    private Utilities utilities = new Utilities();
+
+    public TareaLaboral() {
+        super();
+    }
+
+    public TareaLaboral(String area) {
+        super();
+        this.prioridad = area;
+    }
 
     public String getPrioridad() {
         return prioridad;
@@ -50,7 +62,7 @@ public class TareaLaboral extends Tarea implements ITarea, IAgenda {
 
     @Override
     public void mostrarOcupacion() {
-        System.out.println(this.getDescription()+ " " + this.getPrioridad()+ " " + this.fecha + " " + this.horaInicio + " " + this.horaFin);
+        System.out.println(this.getDescription()+ " " + this.getPrioridad()+ " " + utilities.formatearFecha(fecha) + " " + utilities.formatearFecha(horaInicio) + " " + utilities.formatearFecha(horaFin));
     }
 }
 

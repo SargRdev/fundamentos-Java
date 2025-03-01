@@ -2,6 +2,7 @@ package edu.sarobles.core.fundamentos.model;
 
 import edu.sarobles.core.fundamentos.Interfaces.IAgenda;
 import edu.sarobles.core.fundamentos.Interfaces.ITarea;
+import edu.sarobles.core.fundamentos.utils.Utilities;
 
 import java.sql.SQLOutput;
 import java.util.Date;
@@ -11,6 +12,15 @@ public class TareaDomestica extends Tarea implements ITarea, IAgenda {
     private Date fecha;
     private Date horaInicio;
     private Date horaFin;
+    private Utilities utilities = new Utilities();
+    public TareaDomestica() {
+        super();
+    }
+
+    public TareaDomestica(String area) {
+        super();
+        this.area = area;
+    }
 
     public String getArea() {
         return area;
@@ -49,6 +59,6 @@ public class TareaDomestica extends Tarea implements ITarea, IAgenda {
 
     @Override
     public void mostrarOcupacion() {
-        System.out.println(this.getDescription()+ " " + this.getArea()+ " " + this.fecha + " " + this.horaInicio + " " + this.horaFin);
+        System.out.println(this.getDescription()+ " " + this.getArea()+ " " + utilities.formatearFecha(fecha) + " " + utilities.formatearFecha(horaInicio) + " " + utilities.formatearFecha(horaFin));
     }
 }
