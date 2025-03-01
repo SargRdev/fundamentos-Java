@@ -28,4 +28,11 @@ public abstract class Tarea {
         return "id= " + id + "\n"
                 + "descripción= " + description + "\n";
     }
+
+    public abstract String notificar();
+
+    public void enviarPorEmail(){
+        System.out.println("Enviado por email: " + notificar());
+    }
+
 }

@@ -1,5 +1,6 @@
 package edu.sarobles.core.fundamentos;
 
+import edu.sarobles.core.fundamentos.model.Agenda;
 import edu.sarobles.core.fundamentos.model.Tarea;
 import edu.sarobles.core.fundamentos.model.TareaDomestica;
 import edu.sarobles.core.fundamentos.model.TareaLaboral;
@@ -9,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -36,7 +38,8 @@ public class FundamentosApplication implements CommandLineRunner {
                 1. Agregar Tarea
                 2. Listar Tareas
                 3. Eliminar Tarea
-                4. Salir""");
+                4. Mostrar Información
+                5. Salir""");
 
         System.out.print("Digite el número de opción: ");
     }
@@ -56,6 +59,11 @@ public class FundamentosApplication implements CommandLineRunner {
                 break;
 
             case 4:
+
+                mostrarInformacion(tareas);
+                break;
+
+            case 5:
 
                 salir = true;
                 break;
@@ -88,6 +96,9 @@ public class FundamentosApplication implements CommandLineRunner {
                 tareaNueva.setDescription(entrada.nextLine());
                 System.out.print("Indique la prioridad: ");
                 ((TareaLaboral)tareaNueva).setPrioridad(entrada.nextLine());
+                ((TareaLaboral)tareaNueva).asignarFecha(new Date());
+                ((TareaLaboral)tareaNueva).asignarHoraInicio(new Date());
+                ((TareaLaboral)tareaNueva).asignarHoraFin(new Date());
                 tareas.add(tareaNueva);
                 System.out.println("Tarea agregada con éxito");
                 break;
@@ -98,6 +109,9 @@ public class FundamentosApplication implements CommandLineRunner {
                 tareaNueva.setDescription(entrada.nextLine());
                 System.out.println("Indique el área: ");
                 ((TareaDomestica)tareaNueva).setArea(entrada.nextLine());
+                ((TareaDomestica)tareaNueva).asignarFecha(new Date());
+                ((TareaDomestica)tareaNueva).asignarHoraInicio(new Date());
+                ((TareaDomestica)tareaNueva).asignarHoraFin(new Date());
                 tareas.add(tareaNueva);
                 System.out.println("*** Tarea agregada con exito ***");
                 break;
@@ -111,6 +125,16 @@ public class FundamentosApplication implements CommandLineRunner {
 
     }
 
+    public static void mostrarInformacion(ArrayList<Tarea> tareas) {
+        Agenda agenda = new Agenda();
+        for (int i = 0; i < tareas.size(); i++){
+            if (tareas.get(i) instanceof TareaLaboral){
+                agenda.mostrarInformacion((TareaLaboral)tareas.get(i));
+            }else if (tareas.get(i) instanceof TareaDomestica){
+                agenda.mostrarInformacion((TareaDomestica)tareas.get(i));
+            }
+        }
+    }
 
     public static void listar(ArrayList<Tarea> tareas) {
         if (tareas.isEmpty()) {
@@ -118,9 +142,10 @@ public class FundamentosApplication implements CommandLineRunner {
         }else {
             System.out.println("****** Tareas: ******");
             for (Tarea tarea : tareas) {
-
                 System.out.println(tarea.toString());
                 //System.out.println(tarea.getId() + " " + tarea.getDescription());
+                System.out.println(tarea.notificar());
+                tarea.enviarPorEmail();
             }
             System.out.println("****** FIN ******");
         }
